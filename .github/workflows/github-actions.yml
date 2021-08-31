@@ -1,0 +1,15 @@
+name: Push Secrets
+on: push
+env:
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  AWS_KMS_ID: ${{ secrets.AWS_KMS_ID }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+jobs:
+  push_secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v2
+      - run: cd .github/scripts && yarn
+      - run: cd .github/scripts && node index.js
